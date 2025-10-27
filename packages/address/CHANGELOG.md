@@ -1,5 +1,17 @@
 # @kaspa-auth/address
 
+## 0.1.4
+
+### Patch Changes
+
+- add link to repository
+
+## 0.1.3
+
+### Patch Changes
+
+- add basic docs
+
 ## 0.1.2
 
 ### Patch Changes

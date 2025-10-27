@@ -1,8 +1,12 @@
 {
   "name": "@kluster/kaspa-address",
-  "version": "0.1.2",
+  "version": "0.1.4",
   "private": false,
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/K-Kluster/kaspa-js.git"
+  },
   "scripts": {
     "dev": "npm run build --watch",
     "build": "tsc -b -v",

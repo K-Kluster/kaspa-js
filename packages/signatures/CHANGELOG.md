@@ -1,5 +1,21 @@
 # @kaspa-auth/signature
 
+## 0.1.4
+
+### Patch Changes
+
+- add link to repository
+- Updated dependencies
+  - @kluster/kaspa-address@0.1.4
+
+## 0.1.3
+
+### Patch Changes
+
+- add basic docs
+- Updated dependencies
+  - @kluster/kaspa-address@0.1.3
+
 ## 0.1.2
 
 ### Patch Changes

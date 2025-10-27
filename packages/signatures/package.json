@@ -1,6 +1,6 @@
 {
   "name": "@kluster/kaspa-signature",
-  "version": "0.1.2",
+  "version": "0.1.4",
   "private": false,
   "license": "MIT",
   "scripts": {
@@ -8,6 +8,10 @@
     "build": "tsc -b -v",
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\"",
     "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/K-Kluster/kaspa-js.git"
   },
   "type": "module",
   "main": "./dist/entry.js",
