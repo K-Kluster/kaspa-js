@@ -1,6 +1,6 @@
 {
-  "name": "auth",
-  "private": true,
+  "name": "kluster-kaspa",
+  "private": false,
   "scripts": {
     "build": "turbo run build",
     "dev": "turbo run dev",
