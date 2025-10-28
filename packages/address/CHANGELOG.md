@@ -1,5 +1,11 @@
 # @kaspa-auth/address
 
+## 0.1.5
+
+### Patch Changes
+
+- introduce auth with demo app
+
 ## 0.1.4
 
 ### Patch Changes

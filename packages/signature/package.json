@@ -1,6 +1,6 @@
 {
   "name": "@kluster/kaspa-signature",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "private": false,
   "license": "ISC",
   "scripts": {
