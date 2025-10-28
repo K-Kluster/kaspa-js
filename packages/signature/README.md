@@ -3,7 +3,7 @@ Verify a schnorr signature against a Kaspa address
 Getting started:
 
 ```bash
-npm i @kluster/kaspa-signatures
+npm i @kluster/kaspa-signature
 ```
 
 Example:

@@ -137,7 +137,7 @@ export default function Home() {
     setKaspaAddress(address);
   };
 
-  const handleXprvChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleXprvChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const value = e.target.value;
     setXPrvValue(value);
     try {
@@ -315,14 +315,10 @@ export default function Home() {
           </div>
           {verifyError && <p className="mt-2 text-red-400">{verifyError}</p>}
           {verifyResult === true && (
-            <p className="mt-2 text-green-400">
-              Signature is valid.
-            </p>
+            <p className="mt-2 text-green-400">Signature is valid.</p>
           )}
           {verifyResult === false && (
-            <p className="mt-2 text-red-400">
-              Signature is invalid.
-            </p>
+            <p className="mt-2 text-red-400">Signature is invalid.</p>
           )}
         </Card>
       </div>
