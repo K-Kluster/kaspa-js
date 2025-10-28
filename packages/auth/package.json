@@ -1,0 +1,45 @@
+{
+  "name": "@kluster/kaspa-auth",
+  "version": "0.0.1",
+  "private": false,
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/K-Kluster/kaspa-js.git"
+  },
+  "scripts": {
+    "build": "tsc -b -v",
+    "dev": "tsc -b -w",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "lint": "eslint \"src/**/*.ts\""
+  },
+  "type": "module",
+  "main": "./dist/entry.js",
+  "types": "./dist/entry.d.ts",
+  "files": [
+    "./dist/**"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "exports": {
+    ".": {
+      "import": "./dist/entry.js",
+      "require": "./dist/entry.js"
+    },
+    "./*": {
+      "import": "./dist/*.js",
+      "require": "./dist/*.js"
+    }
+  },
+  "dependencies": {
+    "@kluster/kaspa-address": "*",
+    "@kluster/kaspa-signature": "*"
+  },
+  "devDependencies": {
+    "typescript": "5.5.4",
+    "vitest": "^2.1.1",
+    "eslint": "^9.12.0"
+  }
+}

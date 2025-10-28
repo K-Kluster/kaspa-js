@@ -1,6 +1,6 @@
 import { blake2b } from "@noble/hashes/blake2.js";
 import { schnorr } from "@noble/secp256k1";
-import { KaspaAddress, KaspaAddressVersion } from "@kaspa-auth/address";
+import { KaspaAddress, KaspaAddressVersion } from "@kluster/kaspa-address";
 
 const personalKey = new TextEncoder().encode("PersonalMessageSigningHash");
 

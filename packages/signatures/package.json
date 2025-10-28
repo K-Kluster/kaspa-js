@@ -2,7 +2,7 @@
   "name": "@kluster/kaspa-signature",
   "version": "0.1.4",
   "private": false,
-  "license": "MIT",
+  "license": "ISC",
   "scripts": {
     "dev": "npm run build --watch",
     "build": "tsc -b -v",

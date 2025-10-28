@@ -2,7 +2,7 @@
   "name": "@kluster/kaspa-address",
   "version": "0.1.4",
   "private": false,
-  "license": "MIT",
+  "license": "ISC",
   "repository": {
     "type": "git",
     "url": "https://github.com/K-Kluster/kaspa-js.git"

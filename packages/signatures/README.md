@@ -22,3 +22,5 @@ const result = await verifySignature(
   KaspaAddress.fromString(kaspaAddressStr),
 );
 ```
+
+Signing is out of the scope of this library, for now.
