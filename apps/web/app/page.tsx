@@ -12,10 +12,105 @@ import {
   XPrv,
 } from "./kaspa/kaspa";
 
+// --- UI Components ---
+
+const Card = ({
+  children,
+  className,
+}: {
+  children: React.ReactNode;
+  className?: string;
+}) => (
+  <div
+    className={`bg-gray-900 border border-gray-700 rounded-lg p-6 ${className}`}
+  >
+    {children}
+  </div>
+);
+
+const Button = ({
+  children,
+  onClick,
+  disabled,
+}: {
+  children: React.ReactNode;
+  onClick: () => void;
+  disabled?: boolean;
+}) => (
+  <button
+    onClick={onClick}
+    disabled={disabled}
+    className="w-full py-3 px-4 bg-purple-600 hover:bg-purple-700 transition-colors rounded-lg disabled:bg-gray-600 disabled:cursor-not-allowed"
+  >
+    {children}
+  </button>
+);
+
+const Input = ({
+  value,
+  onChange,
+  placeholder,
+}: {
+  value: string;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  placeholder?: string;
+}) => (
+  <input
+    value={value}
+    onChange={onChange}
+    placeholder={placeholder}
+    className="mt-2 w-full p-3 bg-gray-800 border border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
+  />
+);
+
+const Textarea = ({
+  value,
+  onChange,
+  rows,
+  placeholder,
+}: {
+  value: string;
+  onChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
+  rows: number;
+  placeholder?: string;
+}) => (
+  <textarea
+    value={value}
+    onChange={onChange}
+    rows={rows}
+    placeholder={placeholder}
+    className="mt-2 w-full p-3 bg-gray-800 border border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
+  />
+);
+
+const SectionTitle = ({
+  title,
+  actionText,
+  onAction,
+}: {
+  title: string;
+  actionText?: string;
+  onAction?: () => void;
+}) => (
+  <div className="flex justify-between items-center mb-4">
+    <h2 className="text-xl font-bold text-white">{title}</h2>
+    {actionText && onAction && (
+      <span
+        className="text-purple-400 cursor-pointer hover:underline"
+        onClick={onAction}
+      >
+        {actionText}
+      </span>
+    )}
+  </div>
+);
+
+// --- Main Page Component ---
+
 export default function Home() {
   const [wasm, setWasm] = React.useState<KaspaWasmExports | null>(null);
-  const [message, setMessage] = React.useState<string | "">("");
-  const [xprvValue, setXPrvValue] = React.useState<string | undefined>("");
+  const [message, setMessage] = React.useState<string>("");
+  const [xprvValue, setXPrvValue] = React.useState<string>("");
   const [xprv, setXPrv] = React.useState<XPrv | undefined>();
   const [signError, setSignError] = React.useState<string | null>(null);
   const [verifyError, setVerifyError] = React.useState<string | null>(null);
@@ -33,54 +128,58 @@ export default function Home() {
 
   const onGenerateRandomXPrv = () => {
     const mnemonic = Mnemonic.random();
-    const xprv = new XPrv(mnemonic.toSeed());
+    const newXprv = new XPrv(mnemonic.toSeed());
+    setXPrv(newXprv);
+    setXPrvValue(newXprv.toString());
+    const address = PublicKeyGenerator.fromMasterXPrv(newXprv, false, 0n)
+      .receiveAddress(NetworkType.Mainnet, 0)
+      .toString();
+    setKaspaAddress(address);
+  };
 
-    setXPrv(xprv);
-    setXPrvValue(xprv.toString());
-
-    setKaspaAddress(
-      PublicKeyGenerator.fromMasterXPrv(xprv, false, 0n)
+  const handleXprvChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setXPrvValue(value);
+    try {
+      const _xprv = XPrv.fromXPrv(value);
+      setXPrv(_xprv);
+      const address = PublicKeyGenerator.fromMasterXPrv(_xprv, false, 0n)
         .receiveAddress(NetworkType.Mainnet, 0)
-        .toString(),
-    );
+        .toString();
+      setKaspaAddress(address);
+    } catch (err) {
+      setXPrv(undefined);
+      setKaspaAddress("");
+    }
   };
 
   const onSignClicked = () => {
-    if (message === undefined) {
-      setSignError("No message to sign.");
+    if (!message) {
+      setSignError("Message is empty.");
       return;
     }
-
     if (!xprv) {
-      setSignError("No xPrv, cannot sign.");
+      setSignError("xPrv is not valid.");
       return;
     }
 
     try {
-      const signature = signMessage({
+      const newSignature = signMessage({
         message,
         privateKey: new PrivateKeyGenerator(xprv, false, 0n).receiveKey(0),
       });
-      setSignature(signature);
-      setSignError("");
+      setSignature(newSignature);
+      setMessageToVerify(message);
+      setSignError(null);
     } catch (error) {
       setSignError(String(error));
     }
   };
 
   const onVerifyClicked = async () => {
-    if (!signature) {
-      setVerifyError("Need a signature to verify the signature.");
-    }
-
-    if (!kaspaAddress) {
-      setVerifyError("Need a kaspa address to verify the signature.");
-    }
-
-    if (!messageToVerify) {
-      setVerifyError(
-        "Need an initial message to verify the message signature.",
-      );
+    if (!signature || !kaspaAddress || !messageToVerify) {
+      setVerifyError("Please fill in all fields for verification.");
+      return;
     }
 
     try {
@@ -94,14 +193,12 @@ export default function Home() {
   };
 
   const onGenerateRandomMessage = () => {
-    const kaspaAddressToUse = xprv
-      ? PublicKeyGenerator.fromMasterXPrv(xprv, false, 0n)
-          .receiveAddress(NetworkType.Mainnet, 0)
-          .toString()
-      : "kaspa:qqjmak7xtwq8kn57ngjt0fcw59jgh7nrxc4q59kj0g2gqgyktfeucgwqm3fnl";
+    const addressToUse =
+      kaspaAddress ||
+      "kaspa:qqjmak7xtwq8kn57ngjt0fcw59jgh7nrxc4q59kj0g2gqgyktfeucgwqm3fnl";
 
-    const message = buildMessage({
-      address: kaspaAddressToUse,
+    const generatedMessage = buildMessage({
+      address: addressToUse,
       chainId: "1337",
       domain: "example.com",
       issuedAt: new Date().toISOString(),
@@ -110,124 +207,125 @@ export default function Home() {
       version: "1",
     }).message;
 
-    setMessage(message);
-    setMessageToVerify(message);
+    setMessage(generatedMessage);
+    setMessageToVerify(generatedMessage);
   };
 
   return (
-    <div className="flex flex-col justify-center items-center h-screen w-1/2 mx-auto">
-      <div className="mt-12 w-full">
-        <h2>
-          xPrv:{" "}
-          <span
-            className="underline select-none cursor-pointer"
-            onClick={onGenerateRandomXPrv}
-          >
-            Generate Random One
-          </span>
-        </h2>
-        <input
+    <main className="container mx-auto p-4 md:p-8 grid gap-8 text-white">
+      <div className="text-center">
+        <h1 className="text-4xl font-bold">Kaspa Signing Tool</h1>
+        <p className="text-gray-400 mt-2">
+          A developer utility to test and verify Kaspa message signing.
+        </p>
+      </div>
+
+      {/* Identity Section */}
+      <Card>
+        <SectionTitle
+          title="Identity (xPrv)"
+          actionText="Generate Random"
+          onAction={onGenerateRandomXPrv}
+        />
+        <Textarea
           value={xprvValue}
-          onChange={(e) => {
-            const value = e.target.value;
-
-            try {
-              const _xprv = XPrv.fromXPrv(value);
-
-              setXPrv(_xprv);
-            } catch (err) {
-              console.error(err);
-            }
-
-            setXPrvValue(value);
-          }}
-          className="mt-2 flex items-center justify-center w-full min-h-24 rounded-xl border-purple-950 border"
+          onChange={handleXprvChange}
+          rows={3}
+          placeholder="Enter your extended private key (xPrv)"
         />
-        <p>xPrv: {xprv?.toString()}</p>
-        {xprv ? (
-          <p>
-            Address:{" "}
-            {PublicKeyGenerator.fromMasterXPrv(xprv, false, 0n)
-              .receiveAddress(NetworkType.Mainnet, 0)
-              .toString()}
-          </p>
-        ) : null}
+        {xprvValue && !xprv && (
+          <p className="mt-2 text-red-400">Invalid xPrv format.</p>
+        )}
+        {kaspaAddress && (
+          <div className="mt-4">
+            <p className="font-semibold">Derived Kaspa Address:</p>
+            <p className="text-purple-400 break-all">{kaspaAddress}</p>
+          </div>
+        )}
+      </Card>
+
+      <div className="grid md:grid-cols-2 gap-8">
+        {/* Signing Section */}
+        <Card>
+          <SectionTitle
+            title="Sign Message"
+            actionText="Generate Example"
+            onAction={onGenerateRandomMessage}
+          />
+          <Textarea
+            value={message}
+            onChange={(e) => setMessage(e.target.value)}
+            rows={8}
+            placeholder="Enter the message to sign"
+          />
+          <div className="mt-6">
+            <Button onClick={onSignClicked} disabled={!xprv || !message}>
+              Sign Message
+            </Button>
+          </div>
+          {signError && <p className="mt-2 text-red-400">{signError}</p>}
+          {signature && (
+            <div className="mt-4">
+              <p className="font-semibold">Generated Signature:</p>
+              <Textarea
+                value={signature}
+                onChange={(e) => setSignature(e.target.value)}
+                rows={4}
+              />
+            </div>
+          )}
+        </Card>
+
+        {/* Verification Section */}
+        <Card>
+          <SectionTitle title="Verify Signature" />
+          <div>
+            <label className="font-semibold">Kaspa Address</label>
+            <Input
+              value={kaspaAddress}
+              onChange={(e) => setKaspaAddress(e.target.value)}
+              placeholder="kaspa:..."
+            />
+          </div>
+          <div className="mt-4">
+            <label className="font-semibold">Original Message</label>
+            <Textarea
+              value={messageToVerify}
+              onChange={(e) => setMessageToVerify(e.target.value)}
+              rows={5}
+              placeholder="The message that was signed"
+            />
+          </div>
+          <div className="mt-4">
+            <label className="font-semibold">Signature</label>
+            <Textarea
+              value={signature}
+              onChange={(e) => setSignature(e.target.value)}
+              rows={3}
+              placeholder="The signature to verify"
+            />
+          </div>
+          <div className="mt-6">
+            <Button
+              onClick={onVerifyClicked}
+              disabled={!kaspaAddress || !messageToVerify || !signature}
+            >
+              Verify Signature
+            </Button>
+          </div>
+          {verifyError && <p className="mt-2 text-red-400">{verifyError}</p>}
+          {verifyResult === true && (
+            <p className="mt-2 text-green-400">
+              Signature is valid.
+            </p>
+          )}
+          {verifyResult === false && (
+            <p className="mt-2 text-red-400">
+              Signature is invalid.
+            </p>
+          )}
+        </Card>
       </div>
-
-      <div className="mt-12 w-full">
-        <h2>
-          Message to Sign:{" "}
-          <span
-            className="underline select-none cursor-pointer"
-            onClick={onGenerateRandomMessage}
-          >
-            Generate Random One
-          </span>
-        </h2>
-        <textarea
-          value={message}
-          onChange={(e) => setMessage(e.target.value)}
-          rows={8}
-          className="mt-2 flex items-center justify-center w-full min-h-24 rounded-xl border-purple-950 border"
-        />
-      </div>
-
-      <button
-        onClick={onSignClicked}
-        type="button"
-        className="mt-12 py-3 px-4 bg-purple-900 hover:bg-purple-950 transition-colors hover:cursor-pointer"
-      >
-        Sign
-      </button>
-
-      {signError ? <p className="mt-2 text-red-400">{signError}</p> : null}
-
-      <div className="mt-12 w-full">
-        <h2 className="mt-2">Initial Message to Verify:</h2>
-        <input
-          value={messageToVerify}
-          onChange={(e) => {
-            const value = e.target.value;
-
-            setMessageToVerify(value);
-          }}
-          className="mt-2 flex items-center justify-center w-full min-h-24 rounded-xl border-purple-950 border"
-        />
-
-        <h2>Signature:</h2>
-        <input
-          value={signature}
-          onChange={(e) => {
-            const value = e.target.value;
-
-            setSignature(value);
-          }}
-          className="mt-2 flex items-center justify-center w-full min-h-24 rounded-xl border-purple-950 border"
-        />
-
-        <h2 className="mt-2">Kaspa Address:</h2>
-        <input
-          value={kaspaAddress}
-          onChange={(e) => {
-            const value = e.target.value;
-
-            setKaspaAddress(value);
-          }}
-          className="mt-2 flex items-center justify-center w-full min-h-24 rounded-xl border-purple-950 border"
-        />
-      </div>
-
-      <button
-        onClick={onVerifyClicked}
-        type="button"
-        className="mt-12 py-3 px-4 bg-purple-900 hover:bg-purple-950 transition-colors hover:cursor-pointer"
-      >
-        Verify
-      </button>
-      {verifyError ? <p className="mt-2 text-red-400">{verifyError}</p> : null}
-      {verifyResult === true ? (
-        <p className="mt-2">Signature is valid</p>
-      ) : null}
-    </div>
+    </main>
   );
 }
