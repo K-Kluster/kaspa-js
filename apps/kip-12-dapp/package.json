@@ -26,8 +26,8 @@
     "tailwindcss-animate": "^1.0.7"
   },
   "devDependencies": {
-    "@repo/eslint-config": "*",
-    "@repo/typescript-config": "*",
+    "@kluster/eslint-config": "*",
+    "@kluster/typescript-config": "*",
     "@types/node": "^20.12.12",
     "@types/react": "^18.3.1",
     "@types/react-dom": "^18.3.1",

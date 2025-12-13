@@ -4,7 +4,7 @@
   "private": true,
   "dependencies": {
     "@heroicons/react": "^2.2.0",
-    "@kluster/kaspa-wasm": "*",
+    "@kluster/kaspa-wasm-web": "*",
     "@radix-ui/react-dialog": "^1.1.15",
     "@radix-ui/react-separator": "^1.1.8",
     "@radix-ui/react-slot": "^1.2.4",

@@ -23,15 +23,6 @@ A modern starter kit for building Kaspa applications with React, TypeScript, and
 
 ## Getting Started
 
-To get a local copy up and running, follow these simple steps.
-
-### Prerequisites
-
-Ensure you have the following installed:
-
-- Node.js (LTS version recommended)
-- npm, yarn, or pnpm
-
 ### Installation
 
 > Follow the instructions in the [main README.MD](../../README.md).

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useRpc } from "../context/RpcContext";
-import { IGetBlockDagInfoResponse } from "@kluster/kaspa-wasm";
+import { IGetBlockDagInfoResponse } from "@kluster/kaspa-wasm-web";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
 

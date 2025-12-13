@@ -1,5 +1,5 @@
 {
-  "extends": "@repo/typescript-config/nestjs.json",
+  "extends": "@kluster/typescript-config/nestjs.json",
   "compilerOptions": {
     "allowJs": true,
     "baseUrl": "src",

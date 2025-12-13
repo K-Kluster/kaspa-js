@@ -1,5 +1,5 @@
 {
-  "name": "@repo/nest",
+  "name": "@kluster/nest",
   "version": "0.0.0",
   "private": true,
   "license": "MIT",
@@ -28,8 +28,8 @@
   },
   "dependencies": {},
   "devDependencies": {
-    "@repo/eslint-config": "*",
-    "@repo/typescript-config": "*",
+    "@kluster/eslint-config": "*",
+    "@kluster/typescript-config": "*",
     "@types/node": "^22.10.7",
     "ts-loader": "^9.4.3",
     "ts-node": "^10.9.2",

@@ -1,0 +1,10 @@
+{
+  "extends": "@kluster/typescript-config/base.json",
+  "compilerOptions": {
+    "lib": ["ES2015"],
+    "outDir": "./dist",
+    "allowImportingTsExtensions": true
+  },
+  "exclude": ["node_modules"],
+  "include": ["."]
+}

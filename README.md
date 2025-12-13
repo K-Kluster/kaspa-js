@@ -16,9 +16,10 @@ This repository also includes example web applications demonstrating the integra
 
 | Package                                           | Description                                                                                          |
 | ------------------------------------------------- | ---------------------------------------------------------------------------------------------------- |
+| **[react-starter-kit](./apps/react-starter-kit)** | A React starter kit showcasing a Kaspa integration.                                                  |
+| **[node-starter-kit](./apps/node-starter-kit)**   | A Node.js starter kit showcasing a Kaspa integration.                                                |
 | **[kip-12-dapp](./apps/kip-12-dapp)**             | KIP-12 dApp example - interact with KIP-12 compatible browser extension wallets.                     |
 | **[signing-tool](./apps/signing-tool)**           | Application showcasing signing capabilities. ([live version](https://kluster-kaspa-auth.pages.dev/)) |
-| **[react-starter-kit](./apps/react-starter-kit)** | A React starter kit showcasing a Kaspa integration.                                                  |
 
 ## Development
 

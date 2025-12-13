@@ -36,8 +36,8 @@
   "devDependencies": {
     "@babel/core": "^7.28.5",
     "@babel/preset-env": "^7.28.5",
-    "@repo/eslint-config": "*",
-    "@repo/typescript-config": "*",
+    "@kluster/eslint-config": "*",
+    "@kluster/typescript-config": "*",
     "@types/jest": "29.5.12",
     "@types/node": "^22.10.7",
     "babel-jest": "^29.7.0",

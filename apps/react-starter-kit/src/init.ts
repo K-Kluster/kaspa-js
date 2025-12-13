@@ -1,4 +1,4 @@
-import init, { initConsolePanicHook } from "@kluster/kaspa-wasm";
+import init, { initConsolePanicHook } from "@kluster/kaspa-wasm-web";
 
 const boot = async () => {
   await init();

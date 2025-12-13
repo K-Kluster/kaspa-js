@@ -1,3 +1,3 @@
-import config from "@repo/eslint-config/prettier-base";
+import config from "@kluster/eslint-config/prettier-base";
 
 export default config;

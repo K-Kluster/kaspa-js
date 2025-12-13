@@ -1,4 +1,4 @@
-import { RpcClient, Resolver } from "@kluster/kaspa-wasm";
+import { RpcClient, Resolver } from "@kluster/kaspa-wasm-web";
 import React, {
   createContext,
   useCallback,
