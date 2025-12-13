@@ -41,7 +41,8 @@ import type { SiwkFields } from "@kluster/kaspa-auth";
 // The `clientFields` object should conform to the `SiwkFields` interface.
 const clientFields: SiwkFields = {
   domain: "yourapp.com",
-  address: "kaspa:qr0lr4ml9fn3chekrqmjdkergxl93l4wrk3dankcgvjq776s9wn9jkdskewva",
+  address:
+    "kaspa:qr0lr4ml9fn3chekrqmjdkergxl93l4wrk3dankcgvjq776s9wn9jkdskewva",
   statement: "Sign in to MyApp.",
   uri: "https://yourapp.com/login",
   version: "1",
@@ -88,7 +89,8 @@ import type { SiwkFields } from "@kluster/kaspa-auth";
 // On the server, before sending to the client to be signed
 const fieldsToSign: SiwkFields = {
   domain: "yourapp.com",
-  address: "kaspa:qr0lr4ml9fn3chekrqmjdkergxl93l4wrk3dankcgvjq776s9wn9jkdskewva", // The user's address
+  address:
+    "kaspa:qr0lr4ml9fn3chekrqmjdkergxl93l4wrk3dankcgvjq776s9wn9jkdskewva", // The user's address
   statement: "Sign in to MyApp.",
   uri: "https://yourapp.com/login",
   version: "1",

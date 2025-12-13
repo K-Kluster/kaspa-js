@@ -12,11 +12,13 @@ This monorepo contains a collection of TypeScript libraries for Kaspa, with a fo
 
 ## Applications
 
-This repository also includes an example web application demonstrating the usage of these packages.
+This repository also includes example web applications demonstrating the integration of Kaspa and these packages.
 
-- **[Web App](./apps/web/README.md)**: A Next.js application that shows how to implement a SIWK flow.
-
-This application has been deployed for public access here: https://kluster-kaspa-auth.pages.dev/
+| Package                                              | Description                                                                                          |
+| ---------------------------------------------------- | ---------------------------------------------------------------------------------------------------- |
+| **[kip-12-dapp](./apps/kip-12-dapp)**                | KIP-12 dApp example - interact with KIP-12 compatible browser extension wallets.                     |
+| **[signing-tool](./apps/signing-tool)**              | Application showcasing signing capabilities. ([live version](https://kluster-kaspa-auth.pages.dev/)) |
+| **[@kluster/kaspa-auth](./packages/auth/README.md)** | An implementation of **Sign-In with Kaspa (SIWK)** for decentralized authentication.                 |
 
 ## Development
 

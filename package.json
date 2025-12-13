@@ -4,6 +4,9 @@
   "scripts": {
     "build": "turbo run build",
     "dev": "turbo run dev",
+    "dev:signing-tool": "turbo run dev --filter=signing-tool",
+    "dev:kip-12-dapp": "turbo run dev --filter=kip-12-dapp",
+    "dev:react-starter-kit": "turbo run dev --filter=react-starter-kit",
     "lint": "turbo run lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "check-types": "turbo run check-types"
@@ -20,5 +23,6 @@
   "workspaces": [
     "apps/*",
     "packages/*"
-  ]
+  ],
+  "dependencies": {}
 }
