@@ -1,4 +1,4 @@
-import { app, server, wss } from "./app.ts";
+import { server } from "./app.ts";
 import { kaspaRpcService } from "./services/kaspaRpcService.ts";
 
 const PORT = process.env.PORT || 3000;

@@ -1,5 +1,4 @@
 import ReactDOM from "react-dom/client";
-import "./index.scss";
 import { BrowserRouter, Route, Routes } from "react-router";
 
 import App from "./App";

@@ -2,13 +2,24 @@
 
 This monorepo contains a collection of TypeScript libraries for Kaspa, with a focus on authentication and address handling.
 
+## Requirements
+
+- Node.js v20+
+
+## Starter Kits
+
+To getting started quickly with a Kaspa-capable application, use the CLI: `npx @kluster/kaspa-starter-cli`.
+
+![CLI Demo](./docs/cli-usage.gif)
+
 ## Packages
 
-| Package                                                        | Description                                                                          |
-| -------------------------------------------------------------- | ------------------------------------------------------------------------------------ |
-| **[@kluster/kaspa-address](./packages/address/README.md)**     | A library for encoding and decoding Kaspa addresses.                                 |
-| **[@kluster/kaspa-signature](./packages/signature/README.md)** | Utilities for verifying Schnorr signatures against Kaspa addresses.                  |
-| **[@kluster/kaspa-auth](./packages/auth/README.md)**           | An implementation of **Sign-In with Kaspa (SIWK)** for decentralized authentication. |
+| Package                                                                  | Description                                                                          |
+| ------------------------------------------------------------------------ | ------------------------------------------------------------------------------------ |
+| **[@kluster/kaspa-address](./packages/address/README.md)**               | A library for encoding and decoding Kaspa addresses.                                 |
+| **[@kluster/kaspa-signature](./packages/signature/README.md)**           | Utilities for verifying Schnorr signatures against Kaspa addresses.                  |
+| **[@kluster/kaspa-auth](./packages/auth/README.md)**                     | An implementation of **Sign-In with Kaspa (SIWK)** for decentralized authentication. |
+| **[@kluster/kaspa-starter-cli](./packages/kaspa-starter-cli/README.md)** | A simple CLI to quickly bootstrap a Kaspa-capable application.                       |
 
 ## Applications
 
@@ -36,3 +47,9 @@ To build all packages and apps:
 ```bash
 npm run build
 ```
+
+## Versioning & Publish
+
+- `npx @changesets/cli` - bump packages versions
+- `npx @changesets/cli version` - apply version changes and changelogs
+- `npx @changesets/cli publish` - publish bumped on npm

@@ -1,0 +1,36 @@
+{
+  "name": "@kluster/kaspa-starter-cli",
+  "version": "0.3.2",
+  "private": false,
+  "publishConfig": {
+    "access": "public"
+  },
+  "type": "module",
+  "bin": {
+    "kaspa-starter": "./dist/index.js"
+  },
+  "scripts": {
+    "build": "tsup src/index.ts --format esm --dts --clean",
+    "dev": "tsup src/index.ts --format esm --dts --watch",
+    "start": "node dist/index.js"
+  },
+  "dependencies": {
+    "axios": "^1.7.2",
+    "chalk": "^5.3.0",
+    "commander": "^12.1.0",
+    "execa": "^9.3.0",
+    "extract-zip": "^2.0.1",
+    "fs-extra": "^11.2.0",
+    "inquirer": "^9.3.5",
+    "ora": "^8.0.1"
+  },
+  "devDependencies": {
+    "@kluster/eslint-config": "*",
+    "@kluster/typescript-config": "*",
+    "@types/fs-extra": "^11.0.4",
+    "@types/inquirer": "^9.0.7",
+    "@types/node": "^20.14.12",
+    "tsup": "^8.2.3",
+    "typescript": "^5.5.4"
+  }
+}

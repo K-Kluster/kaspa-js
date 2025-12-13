@@ -25,7 +25,9 @@ A modern starter kit for building Kaspa applications with React, TypeScript, and
 
 ### Installation
 
-> Follow the instructions in the [main README.MD](../../README.md).
+```bash
+npm run i
+```
 
 ### Running the Development Server
 
