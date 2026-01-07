@@ -139,7 +139,8 @@ export async function initProject({
 
   const extractSpinner = ora("Extracting SDK...").start();
   const vendorDir = path.join(projectPath, "vendor", "kluster");
-  const platform = projectType === "react" ? "web" : "node";
+  const platform =
+    projectType === "react" || projectType === "svelte" ? "web" : "node";
   const sdkDirName = `kaspa-wasm-${platform}`;
   const sdkVendorPath = path.join(vendorDir, sdkDirName);
 
@@ -167,8 +168,8 @@ export async function initProject({
     const packageJsonPath = path.join(projectPath, "package.json");
     const packageJson = await fs.readJson(packageJsonPath);
 
-    const wasmPackageName = `@kluster/kaspa-wasm-${projectType === "react" ? "web" : "node"}`;
-    const sdkDirName = `kaspa-wasm-${projectType === "react" ? "web" : "node"}`;
+    const wasmPackageName = `@kluster/kaspa-wasm-${projectType === "react" || projectType === "svelte" ? "web" : "node"}`;
+    const sdkDirName = `kaspa-wasm-${projectType === "react" || projectType === "svelte" ? "web" : "node"}`;
     packageJson.dependencies[wasmPackageName] =
       `file:./vendor/kluster/${sdkDirName}`;
 
