@@ -8,6 +8,7 @@
     "dev:kip-12-dapp": "turbo run dev --filter=kip-12-dapp",
     "dev:react-starter-kit": "turbo run dev --filter=react-starter-kit",
     "dev:node-starter-kit": "turbo run dev --filter=node-starter-kit",
+    "dev:svelte-starter-kit": "turbo run dev --filter=svelte-starter-kit",
     "lint": "turbo run lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "check-types": "turbo run check-types"
@@ -20,6 +21,7 @@
   "engines": {
     "node": ">=20"
   },
+  "packageManager": "npm@10.8.2",
   "workspaces": [
     "apps/*",
     "packages/*"

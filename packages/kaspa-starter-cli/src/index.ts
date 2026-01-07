@@ -10,20 +10,27 @@ program
   .name("kaspa-starter")
   .description("CLI to bootstrap a Kaspa project")
   .option("--dev", "Use local starter kits for development")
+  .option("-t, --type <type>", "Project type (react, nodejs, svelte)")
   .action(async (options) => {
-    const answers = await inquirer.prompt([
-      {
-        type: "list",
-        name: "projectType",
-        message: "Which starter kit would you like to use?",
-        choices: ["react", "nodejs"],
-      },
-    ]);
+    let projectType = options.type;
 
-    const projectType = answers.projectType;
+    if (!projectType) {
+      const answers = await inquirer.prompt([
+        {
+          type: "list",
+          name: "projectType",
+          message: "Which starter kit would you like to use?",
+          choices: ["react", "nodejs", "svelte"],
+        },
+      ]);
+      projectType = answers.projectType;
+    }
+    let starterKitName = "";
+    if (projectType === "react") starterKitName = "react-starter-kit";
+    if (projectType === "nodejs") starterKitName = "node-starter-kit";
+    if (projectType === "svelte") starterKitName = "svelte-starter-kit";
+
     const projectDir = `./${projectType}-starter`;
-    const starterKitName =
-      projectType === "nodejs" ? "node-starter-kit" : "react-starter-kit";
 
     console.log(`Bootstrapping ${projectType} project in ${projectDir}...`);
     await initProject({
