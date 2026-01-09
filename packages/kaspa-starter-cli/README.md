@@ -10,7 +10,7 @@ To use the CLI, run the following command and follow the prompts:
 npx @kluster/kaspa-starter-cli
 ```
 
-This will create a new directory with the chosen starter kit (React or Node.js), download the necessary Kaspa WASM SDK, and install all dependencies.
+This will create a new directory with the chosen starter kit (React, Node.js, Python), download the necessary Kaspa WASM SDK, and install all dependencies.
 
 ### Development
 

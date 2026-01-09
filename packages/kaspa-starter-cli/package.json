@@ -1,7 +1,17 @@
 {
   "name": "@kluster/kaspa-starter-cli",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "private": false,
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/K-Kluster/kaspa-js.git",
+    "directory": "packages/kaspa-starter-cli"
+  },
+  "homepage": "https://github.com/K-Kluster/kaspa-js/tree/master/packages/kaspa-starter-cli",
+  "bugs": {
+    "url": "https://github.com/K-Kluster/kaspa-js/issues"
+  },
   "publishConfig": {
     "access": "public"
   },

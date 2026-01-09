@@ -25,12 +25,13 @@ To getting started quickly with a Kaspa-capable application, use the CLI: `npx @
 
 This repository also includes example web applications demonstrating the integration of Kaspa and these packages.
 
-| Package                                           | Description                                                                                          |
-| ------------------------------------------------- | ---------------------------------------------------------------------------------------------------- |
-| **[react-starter-kit](./apps/react-starter-kit)** | A React starter kit showcasing a Kaspa integration.                                                  |
-| **[node-starter-kit](./apps/node-starter-kit)**   | A Node.js starter kit showcasing a Kaspa integration.                                                |
-| **[kip-12-dapp](./apps/kip-12-dapp)**             | KIP-12 dApp example - interact with KIP-12 compatible browser extension wallets.                     |
-| **[signing-tool](./apps/signing-tool)**           | Application showcasing signing capabilities. ([live version](https://kluster-kaspa-auth.pages.dev/)) |
+| Package                                                     | Description                                                                                          |
+| ----------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- |
+| **[react-starter-kit](./apps/react-starter-kit)**           | A React starter kit showcasing a Kaspa integration.                                                  |
+| **[node-starter-kit](./apps/node-starter-kit)**             | A Node.js starter kit showcasing a Kaspa integration.                                                |
+| **[python-api-starter-kit](./apps/python-api-starter-kit)** | A Fast API Python starter kit showcasing a Kaspa integration.                                        |
+| **[kip-12-dapp](./apps/kip-12-dapp)**                       | KIP-12 dApp example - interact with KIP-12 compatible browser extension wallets.                     |
+| **[signing-tool](./apps/signing-tool)**                     | Application showcasing signing capabilities. ([live version](https://kluster-kaspa-auth.pages.dev/)) |
 
 ## Development
 
