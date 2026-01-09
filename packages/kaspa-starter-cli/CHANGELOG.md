@@ -1,5 +1,11 @@
 # @kluster/kaspa-starter-cli
 
+## 0.4.0
+
+### Minor Changes
+
+- introduce python api starter kit
+
 ## 0.3.2
 
 ### Patch Changes

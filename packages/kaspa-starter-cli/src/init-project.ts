@@ -12,6 +12,89 @@ const __dirname = path.dirname(__filename);
 const GITHUB_API_URL =
   "https://api.github.com/repos/kaspanet/rusty-kaspa/releases/latest";
 
+async function resolvePythonCommand() {
+  const candidates = ["python", "python3"];
+  for (const candidate of candidates) {
+    try {
+      await execa(candidate, ["--version"]);
+      return candidate;
+    } catch (error) {
+      // Try the next candidate.
+    }
+  }
+  return null;
+}
+
+async function setupPythonStarter(projectPath: string) {
+  const pythonCommand = await resolvePythonCommand();
+  if (!pythonCommand) {
+    console.log(
+      "Python was not found on your PATH. Install Python 3.10+ and ensure `python` or `python3` is available.",
+    );
+    console.log("Download: https://www.python.org/downloads/");
+    return false;
+  }
+
+  const venvSpinner = ora("Creating virtual environment...").start();
+  try {
+    await execa(pythonCommand, ["-m", "venv", ".venv"], { cwd: projectPath });
+    venvSpinner.succeed("Virtual environment created");
+  } catch (error) {
+    venvSpinner.fail("Failed to create virtual environment");
+    console.error(error);
+    return false;
+  }
+
+  const installSpinner = ora(
+    "Activating virtual environment and installing dependencies...",
+  ).start();
+  try {
+    if (process.platform === "win32") {
+      await execa(
+        "cmd",
+        [
+          "/c",
+          ".venv\\Scripts\\activate.bat && pip install -r requirements.txt",
+        ],
+        { cwd: projectPath },
+      );
+    } else {
+      await execa(
+        "sh",
+        ["/c", ". .venv/bin/activate && pip install -r requirements.txt"],
+        { cwd: projectPath },
+      );
+    }
+    installSpinner.succeed("Dependencies installed");
+  } catch (error) {
+    installSpinner.fail("Failed to install dependencies");
+    console.error(error);
+    return false;
+  }
+
+  const envSpinner = ora("Creating .env file...").start();
+  try {
+    const envExamplePath = path.join(projectPath, ".env.example");
+    const envPath = path.join(projectPath, ".env");
+    if (await fs.pathExists(envExamplePath)) {
+      if (!(await fs.pathExists(envPath))) {
+        await fs.copy(envExamplePath, envPath);
+      }
+      envSpinner.succeed(".env ready");
+    } else {
+      envSpinner.fail(".env.example not found");
+      console.log("Please create a .env file manually.");
+      return false;
+    }
+  } catch (error) {
+    envSpinner.fail("Failed to create .env");
+    console.error(error);
+    return false;
+  }
+
+  return true;
+}
+
 async function getLatestSdkUrl() {
   const fetchUrlSpinner = ora("Fetching latest SDK URL...").start();
   try {
@@ -110,6 +193,23 @@ export async function initProject({
     } finally {
       await fs.remove(repoTempDir);
     }
+  }
+
+  if (projectType === "python-api") {
+    const setupOk = await setupPythonStarter(projectPath);
+    if (!setupOk) {
+      return;
+    }
+    console.log(`\nSuccess! Your project is ready at ${projectPath}`);
+    console.log("To get started:");
+    console.log(`  cd ${projectDir}`);
+    if (process.platform === "win32") {
+      console.log("  .venv\\Scripts\\activate");
+    } else {
+      console.log("  source .venv/bin/activate");
+    }
+    console.log("  fastapi dev main.py");
+    return;
   }
 
   const tempDir = path.join(projectPath, ".tmp");

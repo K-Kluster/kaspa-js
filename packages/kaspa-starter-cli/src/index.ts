@@ -16,14 +16,21 @@ program
         type: "list",
         name: "projectType",
         message: "Which starter kit would you like to use?",
-        choices: ["react", "nodejs"],
+        choices: ["react", "nodejs", "python-api"],
       },
     ]);
 
     const projectType = answers.projectType;
-    const projectDir = `./${projectType}-starter`;
+    const projectDir =
+      projectType === "python-api"
+        ? "./python-api-starter"
+        : `./${projectType}-starter`;
     const starterKitName =
-      projectType === "nodejs" ? "node-starter-kit" : "react-starter-kit";
+      projectType === "nodejs"
+        ? "node-starter-kit"
+        : projectType === "python-api"
+          ? "python-api-starter-kit"
+          : "react-starter-kit";
 
     console.log(`Bootstrapping ${projectType} project in ${projectDir}...`);
     await initProject({
