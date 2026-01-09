@@ -1,0 +1,12 @@
+# dependencies
+
+# Kaspa SDK
+kaspa>=1.0.1
+
+# Web framework
+fastapi[standard]>=0.127.0
+
+# Configuration
+python-dotenv>=1.0.0
+pydantic>=2.0.0
+pydantic-settings>=2.0.0
